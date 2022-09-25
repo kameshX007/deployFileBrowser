@@ -1,16 +1,18 @@
-version: "2.1"
+version: '3'
 services:
   filebrowser:
     image: filebrowser/filebrowser
     container_name: filebrowser
-    environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Kolkata
-    volumes:
-      - /home/${DOCKER_USER}/docker/filebrowser/config:/config
-      - /home/${DOCKER_USER}:/srv
-      
+    user: 1001:1001
     ports:
-      - 49154:80
+      - 80:80
+    volumes:
+      - /home/${DOCKER_USER}/:/srv
+      - /home/${DOCKER_USER}/docker/filebrowser/filebrowser.db:/database.db
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+networks:
+  default:
+    name: tunnel
+    external: true
