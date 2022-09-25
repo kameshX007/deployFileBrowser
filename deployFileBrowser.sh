@@ -7,9 +7,8 @@ dockerUser=$1;
 #Deploying docker compose
 echo "Deploying File Browser...";
 sudo mkdir -p /home/$dockerUser/docker/filebrowser;
-cd /home/$dockerUser/docker/filebrowser && sudo touch filebrowser.db;
-cd ..;
-sudo chmod -R 777 filebrowser;
+sudo touch /home/$dockerUser/docker/filebrowser/filebrowser.db;
+sudo chmod -R 777 /home/$dockerUser/docker/filebrowser;
 
 DOCKER_USER=$dockerUser docker-compose down
 DOCKER_USER=$dockerUser docker-compose up -d
